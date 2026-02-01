@@ -1,10 +1,68 @@
-# OCR data
+# ===============================
+# OS / Editor
+# ===============================
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.vscode/
+.idea/
+
+# ===============================
+# .NET / ASP.NET
+# ===============================
+bin/
+obj/
+*.user
+*.suo
+*.cache
+*.log
+*.db
+*.db-shm
+*.db-wal
+
+# ===============================
+# ASP.NET publish output
+# ===============================
+publish/
+wwwroot/lib/
+
+# ===============================
+# Docker
+# ===============================
+**/docker-compose.override.yml
+**/*.env
+
+# ===============================
+# OCR / Runtime Data (Privacy First)
+# ===============================
 ocr-data/*
 !ocr-data/.gitkeep
 
-# Visual Studio / .NET temporary files
-bin/
-obj/
-.vs/
-*.user
-*.suo
+# ===============================
+# Uploads / Temp Files
+# ===============================
+uploads/
+temp/
+*.png
+*.jpg
+*.jpeg
+*.tiff
+*.bmp
+*.pdf
+*.txt
+
+# ===============================
+# Python (future FastAPI service)
+# ===============================
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.venv/
+env/
+
+# ===============================
+# Logs
+# ===============================
+logs/
