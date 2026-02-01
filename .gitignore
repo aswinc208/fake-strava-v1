@@ -1,0 +1,10 @@
+# OCR data
+ocr-data/*
+!ocr-data/.gitkeep
+
+# Visual Studio / .NET temporary files
+bin/
+obj/
+.vs/
+*.user
+*.suo
