@@ -1,5 +1,3 @@
-Here’s a **very concise README.md** that focuses only on **setup and how it works**:
-
 ```markdown
 # Fake Strava V1
 
@@ -61,11 +59,4 @@ http://localhost:5000/Ocr/
 
 Everything runs locally; no data leaves your machine.
 
-```
-
----
-
-This is **short, to the point, and fully runnable**.  
-
-If you want, I can also make an **even shorter “3-command Quick Start” version** for GitHub so someone can literally start the app in three lines. Do you want me to do that?
 ```
