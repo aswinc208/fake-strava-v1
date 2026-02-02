@@ -52,10 +52,7 @@ docker compose up -d
 http://localhost:5000/Ocr/
 ```
 
-6. Upload a handwritten note or receipt → see OCR JSON result
-
----
-
+6. Upload strava screenshots → see OCR JSON result
 Everything runs locally; no data leaves your machine.
 
-```
+
