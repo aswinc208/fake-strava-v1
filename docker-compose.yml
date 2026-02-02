@@ -1,19 +1,14 @@
 services:
-  tesseract:
-    build: ./tesseract
-    container_name: tesseract
-    volumes:
-      - ./ocr-data:/data
-    network_mode: "none"
-    command: tail -f /dev/null
   fakestrava:
     build: ./FakeStrava
     container_name: fakestrava
     ports:
       - "5000:80"
     depends_on:
-      - tesseract
-    volumes:
-      - ./ocr-data:/app/ocr-data
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
+      - ocr-service
+
+  ocr-service:
+    build: ./ocr-service
+    container_name: ocr-service
+    ports:
+      - "8000:8000"

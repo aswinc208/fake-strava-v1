@@ -1,39 +1,45 @@
 using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
+using System.Net.Http.Headers;
 
-public class OcrController : Controller
+namespace FakeStrava.Controllers
 {
-    [HttpGet]
-    public IActionResult Index()
+    public class OcrController : Controller
     {
-        return View();
-    }
+        private readonly IHttpClientFactory _httpClientFactory;
 
-    [HttpPost]
-    public IActionResult Upload(IFormFile file)
-    {
-        if (file == null || file.Length == 0)
-            return Content("No file");
+        public OcrController(IHttpClientFactory httpClientFactory)
+        {
+            _httpClientFactory = httpClientFactory;
+        }
+        [HttpGet]
+        public IActionResult Index()
+        {
+            return View("Upload");
+        }
+        [HttpPost]
+        public async Task<IActionResult> Upload(IFormFile file)
+        {
+            if (file == null || file.Length == 0)
+                return Content("No file selected");
 
-        var ocrDir = "/app/ocr-data";
-        var inputPath = Path.Combine(ocrDir, "input.png");
-        var outputPath = Path.Combine(ocrDir, "output.txt");
+            using var httpClient = _httpClientFactory.CreateClient();
+            using var content = new MultipartFormDataContent();
+            using var stream = file.OpenReadStream();
+            content.Add(new StreamContent(stream), "file", file.FileName);
 
-        using (var stream = new FileStream(inputPath, FileMode.Create))
-            file.CopyTo(stream);
+            var ocrUrl = "http://ocr-service:8000/ocr";
+            var response = await httpClient.PostAsync(ocrUrl, content);
 
-        var process = new Process();
-        process.StartInfo.FileName = "docker";
-        process.StartInfo.Arguments = "exec tesseract tesseract /data/input.png /data/output --oem 3 --psm 11 -l eng";
-        process.StartInfo.RedirectStandardOutput = true;
-        process.StartInfo.UseShellExecute = false;
-        process.Start();
-        process.WaitForExit();
+            if (!response.IsSuccessStatusCode)
+            {
+                var error = await response.Content.ReadAsStringAsync();
+                return Content($"OCR failed: {error}");
+            }
 
-        var text = System.IO.File.Exists(outputPath)
-            ? System.IO.File.ReadAllText(outputPath)
-            : "OCR failed";
+            var json = await response.Content.ReadAsStringAsync();
 
-        return Content(text);
+            ViewData["Result"] = json;
+            return View("Upload");
+        }
     }
 }

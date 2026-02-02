@@ -34,12 +34,6 @@ wwwroot/lib/
 **/*.env
 
 # ===============================
-# OCR / Runtime Data (Privacy First)
-# ===============================
-ocr-data/*
-!ocr-data/.gitkeep
-
-# ===============================
 # Uploads / Temp Files
 # ===============================
 uploads/

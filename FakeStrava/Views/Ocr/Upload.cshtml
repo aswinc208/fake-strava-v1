@@ -1,0 +1,16 @@
+@{
+    ViewData["Title"] = "OCR Upload";
+}
+
+<h2>OCR Upload</h2>
+
+<form asp-controller="Ocr" asp-action="Upload" method="post" enctype="multipart/form-data">
+    <input type="file" name="file" />
+    <button type="submit">Upload for OCR</button>
+</form>
+
+@if(ViewData["Result"] != null)
+{
+    <h3>OCR Result:</h3>
+    <pre>@ViewData["Result"]</pre>
+}
