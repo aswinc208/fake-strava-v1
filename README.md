@@ -1,6 +1,6 @@
 # Fake Strava V1
 
-A self-hosted diary app that converts handwritten notes to text using OCR. Fully local and privacy-first.
+A self-hosted app that extracts strava data using OCR. Fully local and privacy-first.
 
 ---
 
